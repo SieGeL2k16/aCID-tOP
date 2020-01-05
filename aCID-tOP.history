@@ -1,0 +1,31 @@
+        Program History for aCID-tOP V1.0 by Sascha 'SieGeL' Pfalz
+                         Last Update: 21-Jun-2003
+-----------------------------------------------------------------------------
+V1.0  (21-Jun-03): First public release after testing the tool for 2 weeks
+                   without any problems.
+
+V0.22 (09-Jun-03): Further testing and checking the code I found out that
+                   I have misunderstand the Last week top uploader ;)
+                   Instead of writing the top uploader of the LAST week
+                   I updated this field only if one of the uploaders has
+                   more bytes as the old uploader uaaargh. Now fixed. Also
+                   the bull creation displays now the correct records instead
+                   of the NEW ones.
+
+V0.21 (09-Jun-03): Suggestion from dIGIMAN:
+                   Tool can now be made resident.
+                   Fixed some display errors on serial console (missing \r)
+                   and added week display both to screen and mail/bull 
+                   output.
+
+V0.1  (09-Jun-03): Initial Version. Mainly written because dr.dre's weektop
+                   does not support 64-Bit for uploaded bytes, which is now
+                   neccessary these days :)
+                   Tool has nearly the same functionality dr.dre's weektop
+                   has, including the exact output. See docs for detailed 
+                   infos which features are implemented.
+                   If you wonder about the name, well this tool is dedicated
+                   to one of the best BBS systems these days...if you are a
+                   member there, you will know which system i mean :)
+----------------------------------------------------------------------[EOF]--
+ (c) 2003 by (tRSi-iNNOVATiONs) - Send mail to siegel@trsi.org for reports

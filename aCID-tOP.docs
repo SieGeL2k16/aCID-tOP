@@ -1,0 +1,264 @@
+                                   ·
+                                  _:___________ _ __________/\  _ _
+                                   :                          \/
+     _______  _____________       _:_.   _____  ______  __  __   _______
+    _\     /_/   _    /   /____ ./   | ./    /_/  _  /./ _\/  \./ _    /
+    \       /    /   /._       \|   _| |_     /  _/   |  \ _   |_ /___/.
+    /_______\____\____:/________|___\: :/_____\__\____|___\/___:/______|
+                                   :
+                                   ·
+                tRSi fAME iNNOVATiON · bACK tO tHE rOOTs!
+                                   ·
+     __. ____   ____   ____   ____ : ______ ______  __. ____   ____
+   ./  |/  _ \./  _ \./  _ \./   /__/   _ /.\    /_/  |/  _ \./  _ \.
+   |  _|   /  |   /  |   /  |   /|  \  _/  |      /  _|   /  |   /  |
+   l__\:__/   |__/   |______|\_______\_\___|______\__\:______|__/   |_
+         /______\______\           .                           /______\
+                                   ·  pRESENTS: aCID-tOP
+      _   _ _/\  ____________ __ __:_
+               \/                  ·  wRITTEN by SieGeL/tRSi
+
+
+  Docs written by Sascha 'SieGeL' Pfalz - Based on dr.dRE's wEEKtOP tOOl
+-----------------------------------------------------------------------------
+
+1. INTRODUCTION
+~~~~~~~~~~~~~~~
+This tool was written because dr.dre's tool was not able to handle more than
+4.2GB of uploaded bytes per week...aCID-tOP uses FAME's 64-Bit API to get rid
+of that limitation, so it is able to count now 18TB per week, which should be
+really enough for a long time :)
+
+aCID-tOP has the following features:
+
+- Very fast and small, can be made resident
+
+- Easy to configure (one Text-File)
+
+- Unlimited conferences supported
+
+- Sends mails for every week passed (if you wish).
+
+- Creates bulletins (if you wish).
+
+- External editor allowing to modify the records.
+
+
+It should be a 100% replacement for dr.dre's tool (sorry man :), so all
+features of his door are implemented here, too. And yes, aCID-tOP is
+indeed a complete new development, no code was taken from dr.dre's tool.
+
+A note according the "period length": aCID-tOP is a WEEKTOP tool, means
+that it count uploads for one week, not 5 or 10 days. The week handling
+is fully automatic and should be accurate until 31-12-3200, which is the
+maximum supported date for date.library.
+
+
+2. REQUIREMENTS
+~~~~~~~~~~~~~~~
+Before installing aCID-tOP, make sure that you meet the following
+requirements:
+
+- AmigaOS 3.x only (using Memory Pools)
+
+- FAME V2.x (don't know if it works also with V1.x versions)
+
+- date.library V33.324+ (included) - Make sure that you HAVE this
+  version else aCID-tOP will crash!
+
+- 68020 or better. I do not support anymore the 68000!
+
+
+3. INSTALLATION
+~~~~~~~~~~~~~~~
+
+Copy the executables aCID-tOP and aCID-eDIT to your doors directory
+(I'm assuming FAME:Doors for now), and copy the supplied config file
+aCID-tOP.cfg to FAME:ExternEnv/Doors/.
+
+Copy the supplied date.library to your LIBS: directory.
+
+Now create two new Door commands in FAME with the SystemEditor.
+
+1: ULSTAT
+
+Used to count the uploads. Define it like this:
+
+Door Call Name: ULSTAT
+     Door Path: FAME:Doors/aCID-tOP
+    Stack Size: 8192
+ Command Allow: NR,NC,CF,SR,SC,AR,AC,RD
+      Mod.Type: FIM, Single Node
+
+2: Door Command, i.e. ACID-TOP
+
+Used to actually view the stats :) Define the name like you wish, assuming
+aCID-tOP now:
+
+Door Call Name: ACID-TOP
+     Door Path: FAME:Doors/aCID-tOP
+    Stack Size: 8192
+ Command Allow: NR,NC,CF,SR,SC,AR,AC,RD
+      Mod.Type: FIM, Single Node
+
+
+You should now edit the configuration file to meet your requirements.
+List of supported options:
+
+
+  DATA_PATH=<PATH_INCLUDING_TRAILING_SLASH!>
+
+Defines where aCID-TOP stores all datafiles. Please enter the path
+to an EXISTING DIRECTORY (!) including the trailing slash.
+
+For all following options you have to replace 'xx' with the conference
+number for which you wish to configure aCID-tOP. So just copy and paste
+the following entries for all conferences you wish to have aCID-tOP
+count the uploads.
+
+
+  CONF_xx_MAXUSERS=<NUMBER_OF_USERS_TO_DISPLAY>
+
+Defines the amount of users to display. Must be a value > 0 of course!
+
+
+  CONF_xx_HEADER=<FULL_PATH_TO_YOUR_HEADER>
+
+Enter here the full path including filename to an ASCII art which will
+be used as header. You should NOT put an clear screen into this header,
+as the same one will be used when sending mails (see below). You can
+always force a cls by using the MCI command ~F
+
+
+  CONF_xx_WRITEMAIL=<YES|NO>
+
+Set to YES if you wish to have stats send via mail when a new week starts.
+If you do not want this, disable it by setting this parameter to NO.
+
+
+  CONF_xx_SYSOPCOUNT=<YES|NO>
+
+If you wish to have the sysop uploads also counted, set this parameter
+to YES, else set it to NO to skip sysop uploads.
+
+
+  CONF_xx_BULLPATH=<FULL_PATH_TO_BULLFILE>
+
+Enter here the full path including filename where to write the bulletin
+file. This file is an exact copy of the file which was sended via mail.
+
+
+The last thing to do is to modify the BULL*.* files inside your conferences
+to include the display of aCID-tOP. You may do this like this:
+
+---[SNIP]---
+
+~PROMPT
+~F
+~CC_ACID-TOP
+
+---[SNAP]---
+
+These commands have the following meaning:
+
+~PROMPT				-> Prompts the user to enter any key. Useful if you have
+                 first shown the conference picture.
+~F						-> Clears the screen
+~CC_ACID-TOP	-> Calls aCID-tOP and displays the current data
+
+
+Of course this is only an example, your milage may vary.
+
+
+4. USAGE
+~~~~~~~~
+Very simple. After successful installation all you have to do is either
+uploading some files to let them count by aCID-tOP or just visit the
+conference where you have installed aCID-tOP to view current statistics.
+
+Please note that the Total Files/Bytes display counts ALL uploads for the
+current week, not only those that where displayed!! So if you have
+configured 10 users to display but 12 have already uploaded you will see
+the total bytes for 12 users!
+
+Whenever aCID-tOP detects a week change, it re-initializes it's datafiles
+and, if configured, write the old stats as mail in the current conference.
+This is done without any user action, aCID-tOP handles everything itself.
+
+Datafiles are very small, currently records are 92 bytes in length and one
+record set for current statistics is 80 bytes in size, so you should not
+encounter a disk full error when using aCID-tOP :)
+
+
+5. EXTERNAL EDITOR
+~~~~~~~~~~~~~~~~~~
+The external editor aCID-eDIT is a small CLI program which allows to modify
+the datafiles of aCID-tOP. Currently supported is only modifying of records
+data, but in the future also the modifing of weekly data will be added.
+
+The editor uses the same preferences, so after installation of aCID-tOP just
+start the editor and it should work fine.
+
+Please note that this is a fuckin' simple editor!!! No checkings are made
+if i.e. the conference you enter really exists. All values you enter will be
+taken WITHOUT ANY VALIDATION, so you are responsible for valid data. I made
+this small tool mainly for digiman to allow him to switch from dre!Weektop
+to aCID-tOP without loosing his records.
+
+
+6. FINAL WORDS & GREETZ
+~~~~~~~~~~~~~~~~~~~~~~~
+aCID-tOP is one of my fastest coding work I've done so far, it took me about
+26 hours to complete the door. It has 40kb of source code defined (C only)
+and uses only Amiga-native API calls, no ANSI-C shit is used to make the
+door fast and small. Compiled with SAS-C V6.58.
+
+Greetz must go to the following ppl:
+
+dr.dRE/tRSi   - For his initial work on dre!wEEKTOP. It's a very nice door
+                and I won't have done aCID-tOP if you had supported 64bits
+                in your door :-)
+
+dIGIMAN/tRSi	- The one who asks for this door. If you know him you know
+                also why I choose the name aCID-tOP :)
+
+Bloodrock     - For his incredible work on the 64Bit API, big thanks man!!!
+
+Kai Hofmann   - For his date.library. AmigaOS seems to have big problems
+                with date calculations, this is the reason why i choose
+                date.library. (i.e. got Weeknr. 63 instead of 23 from
+                locale/FormatDate() ???)
+
+And of course the whole tRSi crew and everyone else I forgot to mention
+here.
+
+
+7. CONTACT
+~~~~~~~~~~
+If you wish to get in contact with me, use one of the following methods:
+
+E-Mail: siegel@trsi.org
+   WWW: http://www.saschapfalz.de or http://www.trsi.cc
+   ICQ: 9691810
+   AIM: SieGeL2K2
+Telnet: siegel.dyndns.org (pUNISHMENT iNC. BBS)
+
+Please do not use siegel@epost.de anymore! This email is removed because
+of the really bad business practises of Post AG...first make the mail address
+free for for all and after enough ppl have registered change your policy to
+have billed access only ...bah! All you @epost.de account owners out there,
+change to gmx.de or similar services and kick epost in the ass!!!!
+-----------------------------------------------------------------------------
+                               TRSI forever!
+ ·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·
+                                                   fAME sUPPORT BBS  ______
+ .-----------[ pUNISHMENT iNC. BBS ]-------------.       __ ________/     /
+ | _________________________________       ______`-------\//  __    \    /---.
+ | \       _____________     /     /______(______)  _     /    \     \  /    |
+ |  \______\    |    __/   _/\______       /     | (/)   /     /\     \/ Mo! |
+ | \     |      |    \      \       |     /      |  ¯   /     / /\     \_    |
+ | \\    l______|_____\      \___________/_______|    _/     /_/  \_____/    |
+ `---------------------\______/-----------------------\_____/-\_____/--------'
+      (tRSi-iNNOVATiONs) WHQ · AIO GERMAN dIST sITE · hOAX dIST sITE
+ ·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·-·
+---------------------------------------------------------------------[EOF]---

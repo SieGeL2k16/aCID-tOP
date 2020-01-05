@@ -1,0 +1,3 @@
+#define COMPILE_DATE "29.12.2019"
+#define COMPILE_VERSION "1.1"
+#define COMPILE_BUILD 16

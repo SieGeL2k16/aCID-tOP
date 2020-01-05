@@ -1,0 +1,10 @@
+  Program history for aCID-eDIT - External Editor for aCID-tOP Data files
+                          (c) 2003 by SieGeL/tRSi
+                        Last Update at: 21-Jun-2003
+-----------------------------------------------------------------------------
+V1.0  (21-Jun-03) - First release version, bumbed version number to 1.0
+
+V0.1  (09-Jun-03) - First initial version coded as simple Shell tool.
+                    Features currently only updating of Record data for a
+                    given conference.
+-----------------------------------------------------------------------[EOF]-
